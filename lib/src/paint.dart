@@ -1,8 +1,8 @@
 part of '../flutter_advanced_progress.dart';
 
+/// Advanced progress painter.
 class AdvancedProgressPainter extends CustomPainter {
   const AdvancedProgressPainter({
-    this.amount,
     this.primaryValue,
     this.secondaryValue,
     this.secondaryWidth,
@@ -11,6 +11,7 @@ class AdvancedProgressPainter extends CustomPainter {
     this.maxDegrees,
     this.progressGap,
     this.division,
+    this.levelAmount,
     this.levelWidth,
     this.levelLow,
     this.levelHigh,
@@ -19,20 +20,52 @@ class AdvancedProgressPainter extends CustomPainter {
     this.tertiaryColor,
   });
 
-  final int amount;
+  /// Value for primary progress.
   final double primaryValue;
+
+  /// Value for secondary progress.
   final double secondaryValue;
+
+  /// Secondary progress width.
   final double secondaryWidth;
+
+  /// Total radius for whole widget.
   final double radius;
+
+  /// Progress start angle.
   final double startAngle;
+
+  /// Progress degrees from [startAngle].
   final double maxDegrees;
+
+  /// Gap between primary and secondary progress.
   final double progressGap;
+
+  /// Primary progress division.
   final int division;
+
+  /// Amount of levels on primary progress.
+  final int levelAmount;
+
+  /// Width of levels on primary progress.
   final double levelWidth;
+
+  /// Height of low levels on primary progress.
   final double levelLow;
+
+  /// Height of high levels managed by [division] on primary progress.
   final double levelHigh;
+
+  /// Primary color that used as a color for progress of first in gradient.
+  /// User for primary and secondary progress.
   final Color primaryColor;
+
+  /// Secondary color that used last in gradient.
+  /// User for primary and secondary progress.
   final Color secondaryColor;
+
+  /// Tertiary color that used for inactive part of progress.
+  /// User for primary and secondary progress.
   final Color tertiaryColor;
 
   @override
@@ -44,23 +77,24 @@ class AdvancedProgressPainter extends CustomPainter {
   void _drawPrimaryProgress(Canvas canvas, Size size) {
     if (primaryValue == null) return;
 
-    final secondarySpace = secondaryValue != null ? secondaryWidth + progressGap : 0.0;
+    final secondarySpace =
+        secondaryValue != null ? secondaryWidth + progressGap : 0.0;
     final extraSpace = max(levelHigh, levelLow) + secondarySpace;
     final activeRadius = radius - extraSpace;
-    final anglePerItem = maxDegrees / amount;
+    final anglePerItem = maxDegrees / levelAmount;
 
     final paint = Paint()
       ..strokeWidth = levelWidth
       ..style = PaintingStyle.stroke
       ..color = tertiaryColor;
 
-    for (var index = 0; index < amount; index++) {
+    for (var index = 0; index < levelAmount; index++) {
       final angle = anglePerItem * index + startAngle + (anglePerItem / 2);
       final active =
           division != null && index > 0 ? index % division == 0 : false;
 
       final isFillWithColor =
-          (index / amount) <= primaryValue && primaryValue != 0.0;
+          (index / levelAmount) <= primaryValue && primaryValue != 0.0;
 
       canvas.save();
 
@@ -68,7 +102,7 @@ class AdvancedProgressPainter extends CustomPainter {
           ? ColorTween(
               begin: primaryColor,
               end: secondaryColor ?? primaryColor,
-            ).transform(index / amount)
+            ).transform(index / levelAmount)
           : tertiaryColor;
 
       final offset = Offset(
@@ -125,7 +159,8 @@ class AdvancedProgressPainter extends CustomPainter {
         ],
         startAngle: radians(startAngle),
         endAngle: radians(maxDegrees),
-        transform: GradientRotation(radians(startAngle - (secondaryWidth / 1.5))),
+        transform:
+            GradientRotation(radians(startAngle - (secondaryWidth / 1.5))),
       ).createShader(secondRect);
 
     canvas.drawArc(

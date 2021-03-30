@@ -1,17 +1,19 @@
 part of '../flutter_advanced_progress.dart';
 
+/// Advanced progress widget.
+/// Represents two progress, primary and secondary.
 class AdvancedProgress extends StatelessWidget {
   AdvancedProgress({
     Key key,
-    @required this.levelAmount,
-    @required this.radius,
     this.primaryValue,
     this.secondaryValue,
     this.secondaryWidth = 10.0,
+    @required this.radius,
     this.startAngle = 120.0,
     this.maxDegrees = 300.0,
     this.progressGap = 0.0,
     this.division = 10,
+    @required this.levelAmount,
     this.levelWidth = 1.0,
     this.levelLow = 8.0,
     this.levelHigh = 16.0,
@@ -21,21 +23,55 @@ class AdvancedProgress extends StatelessWidget {
     this.child,
   }) : super(key: key);
 
-  final int levelAmount;
+  /// Value for primary progress.
   final double primaryValue;
+
+  /// Value for secondary progress.
   final double secondaryValue;
+
+  /// Secondary progress width.
   final double secondaryWidth;
+
+  /// Total radius for whole widget.
   final double radius;
+
+  /// Progress start angle.
   final double startAngle;
+
+  /// Progress degrees from [startAngle].
   final double maxDegrees;
+
+  /// Gap between primary and secondary progress.
   final double progressGap;
+
+  /// Primary progress division.
   final int division;
+
+  /// Amount of levels on primary progress.
+  final int levelAmount;
+
+  /// Width of levels on primary progress.
   final double levelWidth;
+
+  /// Height of low levels on primary progress.
   final double levelLow;
+
+  /// Height of high levels managed by [division] on primary progress.
   final double levelHigh;
+
+  /// Primary color that used as a color for progress of first in gradient.
+  /// User for primary and secondary progress.
   final Color primaryColor;
+
+  /// Secondary color that used last in gradient.
+  /// User for primary and secondary progress.
   final Color secondaryColor;
+
+  /// Tertiary color that used for inactive part of progress.
+  /// User for primary and secondary progress.
   final Color tertiaryColor;
+
+  /// Child widget.
   final Widget child;
 
   @override
@@ -51,7 +87,6 @@ class AdvancedProgress extends StatelessWidget {
       decoration: BoxDecoration(),
       child: CustomPaint(
         painter: AdvancedProgressPainter(
-          amount: levelAmount,
           primaryValue: primaryValue,
           secondaryValue: secondaryValue,
           secondaryWidth: secondaryWidth,
@@ -60,6 +95,7 @@ class AdvancedProgress extends StatelessWidget {
           maxDegrees: maxDegrees,
           progressGap: progressGap,
           division: division,
+          levelAmount: levelAmount,
           levelWidth: levelWidth,
           levelLow: levelLow,
           levelHigh: levelHigh,
