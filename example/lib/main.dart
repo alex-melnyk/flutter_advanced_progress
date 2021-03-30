@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     final theme = Theme.of(context);
 
     return MaterialApp(
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         body: Container(

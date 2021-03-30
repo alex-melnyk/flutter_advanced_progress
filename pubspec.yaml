@@ -1,10 +1,10 @@
 name: flutter_advanced_progress
 description: An advanced progress widget, that can be fully customized with bunch of properties, just try it and enjoy!
 version: 0.0.1
-homepage: https://github.com/alex-melnyk/flutter_advanced_segment
-repository: https://github.com/alex-melnyk/flutter_advanced_segment
-issue_tracker: https://github.com/alex-melnyk/flutter_advanced_segment/issues
-documentation: https://github.com/alex-melnyk/flutter_advanced_segment/blob/master/README.md
+homepage: https://github.com/alex-melnyk/flutter_advanced_progress
+repository: https://github.com/alex-melnyk/flutter_advanced_progress
+issue_tracker: https://github.com/alex-melnyk/flutter_advanced_progress/issues
+documentation: https://github.com/alex-melnyk/flutter_advanced_progress/blob/master/README.md
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
