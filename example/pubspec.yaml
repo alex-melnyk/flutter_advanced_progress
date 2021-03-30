@@ -1,0 +1,20 @@
+name: flutter_advanced_progress_example
+description: Demonstrates how to use the flutter_advanced_progress plugin.
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_advanced_progress:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
