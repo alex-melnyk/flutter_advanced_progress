@@ -18,3 +18,25 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Barlow
+      fonts:
+      - asset: assets/fonts/Barlow-Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Barlow-ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Barlow-Light.ttf
+        weight: 300
+      - asset: assets/fonts/Barlow-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Barlow-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Barlow-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Barlow-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Barlow-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/Barlow-Black.ttf
+        weight: 900

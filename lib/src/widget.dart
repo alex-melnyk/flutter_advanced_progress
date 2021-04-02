@@ -14,9 +14,10 @@ class AdvancedProgress extends StatelessWidget {
     this.progressGap = 0.0,
     this.division = 10,
     @required this.levelAmount,
-    this.levelWidth = 1.0,
-    this.levelLow = 8.0,
-    this.levelHigh = 16.0,
+    this.levelLowWidth = 1.0,
+    this.levelLowHeight = 8.0,
+    this.levelHighWidth = 2.0,
+    this.levelHighHeight = 16.0,
     this.primaryColor,
     this.secondaryColor,
     this.tertiaryColor,
@@ -50,14 +51,17 @@ class AdvancedProgress extends StatelessWidget {
   /// Amount of levels on primary progress.
   final int levelAmount;
 
-  /// Width of levels on primary progress.
-  final double levelWidth;
+  /// Width of low levels on primary progress.
+  final double levelLowWidth;
 
   /// Height of low levels on primary progress.
-  final double levelLow;
+  final double levelLowHeight;
+
+  /// Width of high levels on primary progress.
+  final double levelHighWidth;
 
   /// Height of high levels managed by [division] on primary progress.
-  final double levelHigh;
+  final double levelHighHeight;
 
   /// Primary color that used as a color for progress of first in gradient.
   /// User for primary and secondary progress.
@@ -96,9 +100,10 @@ class AdvancedProgress extends StatelessWidget {
           progressGap: progressGap,
           division: division,
           levelAmount: levelAmount,
-          levelWidth: levelWidth,
-          levelLow: levelLow,
-          levelHigh: levelHigh,
+          levelLowWidth: levelLowWidth,
+          levelLowHeight: levelLowHeight,
+          levelHighWidth: levelHighWidth,
+          levelHighHeight: levelHighHeight,
           primaryColor: primaryColor ?? theme.indicatorColor,
           secondaryColor: secondaryColor ?? primaryColor,
           tertiaryColor: tertiaryColor ?? theme.hintColor,
