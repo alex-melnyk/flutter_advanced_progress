@@ -12,12 +12,14 @@ class AdvancedProgressPainter extends CustomPainter {
     this.progressGap,
     this.division,
     this.levelAmount,
-    this.levelWidth,
-    this.levelLow,
-    this.levelHigh,
+    this.levelLowWidth,
+    this.levelLowHeight,
+    this.levelHighWidth,
+    this.levelHighHeight,
     this.primaryColor,
     this.secondaryColor,
     this.tertiaryColor,
+    this.levelHighBeginEnd,
   });
 
   /// Value for primary progress.
@@ -48,13 +50,19 @@ class AdvancedProgressPainter extends CustomPainter {
   final int levelAmount;
 
   /// Width of levels on primary progress.
-  final double levelWidth;
+  final double levelLowWidth;
 
   /// Height of low levels on primary progress.
-  final double levelLow;
+  final double levelLowHeight;
 
   /// Height of high levels managed by [division] on primary progress.
-  final double levelHigh;
+  final double levelHighHeight;
+
+  /// Width of levels on primary progress.
+  final double levelHighWidth;
+
+  /// True if need to begin and end with high level.
+  final bool levelHighBeginEnd;
 
   /// Primary color that used as a color for progress of first in gradient.
   /// User for primary and secondary progress.
@@ -79,31 +87,39 @@ class AdvancedProgressPainter extends CustomPainter {
 
     final secondarySpace =
         secondaryValue != null ? secondaryWidth + progressGap : 0.0;
-    final extraSpace = max(levelHigh, levelLow) + secondarySpace;
+    final extraSpace = max(levelHighHeight, levelLowHeight) + secondarySpace;
     final activeRadius = radius - extraSpace;
     final anglePerItem = maxDegrees / levelAmount;
 
     final paint = Paint()
-      ..strokeWidth = levelWidth
+      ..strokeWidth = levelLowWidth
+      ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..color = tertiaryColor;
 
     for (var index = 0; index < levelAmount; index++) {
       final angle = anglePerItem * index + startAngle + (anglePerItem / 2);
-      final active =
-          division != null && index > 0 ? index % division == 0 : false;
 
       final isFillWithColor =
           (index / levelAmount) <= primaryValue && primaryValue != 0.0;
 
+      final isHighLevel =
+          division != null && index > 0 && index < levelAmount - 1
+          || (levelHighBeginEnd && index == 0)
+              || (levelHighBeginEnd && index == levelAmount - 1)
+              ? index % division == 0
+              : false;
+
       canvas.save();
 
-      paint.color = isFillWithColor
-          ? ColorTween(
-              begin: primaryColor,
-              end: secondaryColor ?? primaryColor,
-            ).transform(index / levelAmount)
-          : tertiaryColor;
+      paint
+        ..color = isFillWithColor
+            ? ColorTween(
+                begin: primaryColor,
+                end: secondaryColor ?? primaryColor,
+              ).transform(index / levelAmount)
+            : tertiaryColor
+        ..strokeWidth = isHighLevel ? levelHighWidth : levelLowWidth;
 
       final offset = Offset(
         activeRadius * cos(pi * angle / 180) + activeRadius + extraSpace,
@@ -115,7 +131,7 @@ class AdvancedProgressPainter extends CustomPainter {
       canvas.rotate(radians(angle));
       canvas.drawLine(
         Offset.zero,
-        Offset(active ? levelHigh : levelLow, 0),
+        Offset(isHighLevel ? levelHighHeight : levelLowHeight, 0),
         paint,
       );
 
