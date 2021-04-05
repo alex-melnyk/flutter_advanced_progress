@@ -19,6 +19,7 @@ class AdvancedProgressPainter extends CustomPainter {
     this.primaryColor,
     this.secondaryColor,
     this.tertiaryColor,
+    this.levelHighBeginEnd,
   });
 
   /// Value for primary progress.
@@ -59,6 +60,9 @@ class AdvancedProgressPainter extends CustomPainter {
 
   /// Width of levels on primary progress.
   final double levelHighWidth;
+
+  /// True if need to begin and end with high level.
+  final bool levelHighBeginEnd;
 
   /// Primary color that used as a color for progress of first in gradient.
   /// User for primary and secondary progress.
@@ -101,6 +105,8 @@ class AdvancedProgressPainter extends CustomPainter {
 
       final isHighLevel =
           division != null && index > 0 && index < levelAmount - 1
+          || (levelHighBeginEnd && index == 0)
+              || (levelHighBeginEnd && index == levelAmount - 1)
               ? index % division == 0
               : false;
 

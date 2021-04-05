@@ -64,7 +64,7 @@ class _SmartOverPageState extends State<SmartOverPage> {
                           top: 16.0,
                         ),
                         child: Text(
-                          '  240°',
+                          ' 240°',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             letterSpacing: 1.5,
@@ -147,17 +147,13 @@ class _SmartOverPageState extends State<SmartOverPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Swipe to Stop',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Barlow',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Colors.black54,
-                          ),
+                      child: Text(
+                        'Swipe to Stop',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Barlow',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
                         ),
                       ),
                     ),
