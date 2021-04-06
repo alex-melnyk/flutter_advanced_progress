@@ -6,9 +6,10 @@ class ExamplesPage extends StatefulWidget {
   _ExamplesPageState createState() => _ExamplesPageState();
 }
 
-class _ExamplesPageState extends State<ExamplesPage> with TickerProviderStateMixin {
-  AnimationController _primaryAnimController;
-  AnimationController _secondaryAnimController;
+class _ExamplesPageState extends State<ExamplesPage>
+    with TickerProviderStateMixin {
+  late AnimationController _primaryAnimController;
+  late AnimationController _secondaryAnimController;
   int _sliderAmount = 75;
   int _division = 15;
 
@@ -192,7 +193,9 @@ class _ExamplesPageState extends State<ExamplesPage> with TickerProviderStateMix
                 ),
               ],
             ),
-            SizedBox(height: 16.0,),
+            SizedBox(
+              height: 16.0,
+            ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -228,7 +231,9 @@ class _ExamplesPageState extends State<ExamplesPage> with TickerProviderStateMix
                 ),
               ],
             ),
-            SizedBox(height: 16.0,),
+            SizedBox(
+              height: 16.0,
+            ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -23,58 +23,58 @@ class AdvancedProgressPainter extends CustomPainter {
   });
 
   /// Value for primary progress.
-  final double primaryValue;
+  final double? primaryValue;
 
   /// Value for secondary progress.
-  final double secondaryValue;
+  final double? secondaryValue;
 
   /// Secondary progress width.
-  final double secondaryWidth;
+  final double? secondaryWidth;
 
   /// Total radius for whole widget.
-  final double radius;
+  final double? radius;
 
   /// Progress start angle.
-  final double startAngle;
+  final double? startAngle;
 
   /// Progress degrees from [startAngle].
-  final double maxDegrees;
+  final double? maxDegrees;
 
   /// Gap between primary and secondary progress.
-  final double progressGap;
+  final double? progressGap;
 
   /// Primary progress division.
-  final int division;
+  final int? division;
 
   /// Amount of levels on primary progress.
-  final int levelAmount;
+  final int? levelAmount;
 
   /// Width of levels on primary progress.
-  final double levelLowWidth;
+  final double? levelLowWidth;
 
   /// Height of low levels on primary progress.
-  final double levelLowHeight;
+  final double? levelLowHeight;
 
   /// Height of high levels managed by [division] on primary progress.
-  final double levelHighHeight;
+  final double? levelHighHeight;
 
   /// Width of levels on primary progress.
-  final double levelHighWidth;
+  final double? levelHighWidth;
 
   /// True if need to begin and end with high level.
-  final bool levelHighBeginEnd;
+  final bool? levelHighBeginEnd;
 
   /// Primary color that used as a color for progress of first in gradient.
   /// User for primary and secondary progress.
-  final Color primaryColor;
+  final Color? primaryColor;
 
   /// Secondary color that used last in gradient.
   /// User for primary and secondary progress.
-  final Color secondaryColor;
+  final Color? secondaryColor;
 
   /// Tertiary color that used for inactive part of progress.
   /// User for primary and secondary progress.
-  final Color tertiaryColor;
+  final Color? tertiaryColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -86,28 +86,28 @@ class AdvancedProgressPainter extends CustomPainter {
     if (primaryValue == null) return;
 
     final secondarySpace =
-        secondaryValue != null ? secondaryWidth + progressGap : 0.0;
-    final extraSpace = max(levelHighHeight, levelLowHeight) + secondarySpace;
-    final activeRadius = radius - extraSpace;
-    final anglePerItem = maxDegrees / levelAmount;
+        secondaryValue != null ? secondaryWidth! + progressGap! : 0.0;
+    final extraSpace = max(levelHighHeight!, levelLowHeight!) + secondarySpace;
+    final activeRadius = radius! - extraSpace;
+    final anglePerItem = maxDegrees! / levelAmount!;
 
     final paint = Paint()
-      ..strokeWidth = levelLowWidth
+      ..strokeWidth = levelLowWidth!
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..color = tertiaryColor;
+      ..color = tertiaryColor!;
 
-    for (var index = 0; index < levelAmount; index++) {
-      final angle = anglePerItem * index + startAngle + (anglePerItem / 2);
+    for (var index = 0; index < levelAmount!; index++) {
+      final angle = anglePerItem * index + startAngle! + (anglePerItem / 2);
 
       final isFillWithColor =
-          (index / levelAmount) <= primaryValue && primaryValue != 0.0;
+          (index / levelAmount!) <= primaryValue! && primaryValue != 0.0;
 
       final isHighLevel =
-          division != null && index > 0 && index < levelAmount - 1
-          || (levelHighBeginEnd && index == 0)
-              || (levelHighBeginEnd && index == levelAmount - 1)
-              ? index % division == 0
+          division != null && index > 0 && index < levelAmount! - 1 ||
+                  (levelHighBeginEnd! && index == 0) ||
+                  (levelHighBeginEnd! && index == levelAmount! - 1)
+              ? index % division! == 0
               : false;
 
       canvas.save();
@@ -117,9 +117,9 @@ class AdvancedProgressPainter extends CustomPainter {
             ? ColorTween(
                 begin: primaryColor,
                 end: secondaryColor ?? primaryColor,
-              ).transform(index / levelAmount)
-            : tertiaryColor
-        ..strokeWidth = isHighLevel ? levelHighWidth : levelLowWidth;
+              ).transform(index / levelAmount!)!
+            : tertiaryColor!
+        ..strokeWidth = isHighLevel ? levelHighWidth! : levelLowWidth!;
 
       final offset = Offset(
         activeRadius * cos(pi * angle / 180) + activeRadius + extraSpace,
@@ -131,7 +131,7 @@ class AdvancedProgressPainter extends CustomPainter {
       canvas.rotate(radians(angle));
       canvas.drawLine(
         Offset.zero,
-        Offset(isHighLevel ? levelHighHeight : levelLowHeight, 0),
+        Offset(isHighLevel ? levelHighHeight! : levelLowHeight!, 0),
         paint,
       );
 
@@ -142,26 +142,26 @@ class AdvancedProgressPainter extends CustomPainter {
   void _drawSecondaryProgress(Canvas canvas, Size size) {
     if (secondaryValue == null) return;
 
-    final halfWidth = secondaryWidth / 2;
+    final halfWidth = secondaryWidth! / 2;
     final secondRect = Rect.fromLTWH(
       halfWidth,
       halfWidth,
-      size.width - secondaryWidth,
-      size.height - secondaryWidth,
+      size.width - secondaryWidth!,
+      size.height - secondaryWidth!,
     );
 
     final secondPaint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = secondaryWidth
+      ..strokeWidth = secondaryWidth!
       ..strokeCap = StrokeCap.round
-      ..color = tertiaryColor;
+      ..color = tertiaryColor!;
 
     canvas.save();
 
     canvas.drawArc(
       secondRect,
-      radians(startAngle),
-      radians(maxDegrees),
+      radians(startAngle!),
+      radians(maxDegrees!),
       false,
       secondPaint,
     );
@@ -170,19 +170,19 @@ class AdvancedProgressPainter extends CustomPainter {
       ..color = Colors.black
       ..shader = SweepGradient(
         colors: [
-          primaryColor,
-          secondaryColor ?? primaryColor,
+          primaryColor!,
+          secondaryColor ?? primaryColor!,
         ],
-        startAngle: radians(startAngle),
-        endAngle: radians(maxDegrees),
+        startAngle: radians(startAngle!),
+        endAngle: radians(maxDegrees!),
         transform:
-            GradientRotation(radians(startAngle - (secondaryWidth / 1.5))),
+            GradientRotation(radians(startAngle! - (secondaryWidth! / 1.5))),
       ).createShader(secondRect);
 
     canvas.drawArc(
       secondRect,
-      radians(startAngle),
-      radians(maxDegrees * secondaryValue),
+      radians(startAngle!),
+      radians(maxDegrees! * secondaryValue!),
       false,
       secondPaint,
     );

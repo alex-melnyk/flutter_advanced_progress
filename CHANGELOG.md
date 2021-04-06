@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Null-Safety implemented. 
+
 ## 0.0.3
 
 * Bunch of parameters added.
